@@ -1,11 +1,10 @@
-// Scene.tsx
-
 "use client"
 
 import { Canvas } from "@react-three/fiber"
 import { useProgress, Html, ScrollControls, OrbitControls } from "@react-three/drei"
 import { useState, Suspense } from "react"
 import Model from './Model'
+import Image from 'next/image';
 
 function Loader() {
   const { progress } = useProgress()
@@ -59,7 +58,14 @@ export default function Scene() {
             style={{ bottom: '20px' }}
         >
             <div className="flex flex-col items-center">
-                <img src="/icons/scroll_arrow.svg" alt="Scroll Arrow" className="scroll-arrow animate-bounce w-10 h-10 mt-2" />
+                <Image 
+                    src="/icons/scroll_arrow.svg" 
+                    alt="Scroll Arrow" 
+                    className="scroll-arrow animate-bounce mt-2" 
+                    width={40} 
+                    height={40} 
+                    priority
+                />
             </div>
         </div>
     </>

@@ -12,9 +12,9 @@ interface ModelProps {
 }
 
 export default function Model({ setClickedAngle }: ModelProps) {
-    
+
     const group = useRef<Group>(null)
-    const { nodes, materials, animations, scene } = useGLTF("/three/coffee_grinder.glb")
+    const { animations, scene } = useGLTF("/three/coffee_grinder.glb")
     const { actions } = useAnimations(animations, scene)
     const scroll = useScroll()
 
