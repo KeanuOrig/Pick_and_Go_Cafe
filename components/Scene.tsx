@@ -4,7 +4,9 @@ import { Canvas } from "@react-three/fiber"
 import { useProgress, Html, ScrollControls, OrbitControls } from "@react-three/drei"
 import { useState, Suspense } from "react"
 import Model from './Model'
-import Image from 'next/image';
+import Image from 'next/image'
+import { useWindowSize } from "@/hooks/useWindowSize"
+import { LandingData } from "@/interface"
 
 function Loader() {
   const { progress } = useProgress()
@@ -14,6 +16,14 @@ function Loader() {
 export default function Scene() {
 
     const [clickedAngle, setClickedAngle] = useState<number | null>(null)
+    const [data, setData] = useState<LandingData[]>([]);
+    const { isMobile } = useWindowSize();
+    
+
+    fetch('/data/landing_scroll_data.json')
+        .then(response => response.json())
+        .then(data => setData(data))
+        .catch(error => console.error('Error fetching data:', error));
 
     return (
     <>
@@ -21,7 +31,7 @@ export default function Scene() {
             gl={{ antialias: true }} 
             dpr={[1, 1.5]} 
             camera={{ position: [1, 0.5, 1.5], fov: 25 }} 
-            className="relative h-svh"
+            className="relative h-svh"  
         >
             <directionalLight position={[5, 5, 5]} intensity={10} />
             <directionalLight position={[-5, -5, -5]} intensity={3} />
@@ -29,25 +39,28 @@ export default function Scene() {
                 <ScrollControls damping={0.3} pages={4}>
                     <Model setClickedAngle={setClickedAngle} />
                 </ScrollControls>
-                <OrbitControls enableZoom={false} />
+                { ! isMobile && <OrbitControls enableZoom={false} /> }
             </Suspense>
         </Canvas>
 
         {/* Text Divs for different angles */}
-        {[
-            { angle: 90, title: 'Signature Coffees', content: ['Indulge in our expertly crafted coffee selections.', 'From rich espresso to velvety lattes, we have it all.', 'Every cup is brewed with love and care!'], position: { left: '5%', top: '10%' } },
-            { angle: 180, title: 'Refreshing Teas', content: ['Try our assortment of fresh teas, brewed to perfection.', 'From classic black tea to herbal infusions, enjoy a relaxing moment.'], position: { right: '5%', top: '10%' } },
-            { angle: 270, title: 'Specialty Drinks', content: ['Quench your thirst with our handcrafted specialty drinks.', 'Cold brew, iced teas, and more – perfect for any occasion!'], position: { left: '5%', top: '60%' } },
-            { angle: 360, title: 'Pastries & Snacks', content: ['Pair your drink with one of our freshly baked pastries.', 'From croissants to cookies, we\'ve got your snack cravings covered!'], position: { right: '5%', top: '60%' } },
-        ].map(({ angle, title, content, position }) => (
+        
+        {data.map(({ angle, title, content, position }) => (
             <div 
                 key={angle} 
                 className={`text-overlay absolute text-white bg-black bg-opacity-70 p-5 rounded-lg transition-opacity duration-500 ${clickedAngle === angle ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} 
-                style={position}
+                style={ ! isMobile ? position : { 
+                    top: '80%', 
+                    left: '50%', 
+                    transform: 'translate(-50%, -50%)',
+                    width: '80%',
+                    maxWidth: '400px',
+                    textAlign: 'center'
+                }}
             >
-                <h2 className="font-serif text-2xl text-center mb-2 shadow-md tracking-wide px-2">{title}</h2>
+                <h1 className="font-serif text-2xl text-center mb-2 shadow-md tracking-wide px-2">{title}</h1>
                 {content.map((text, index) => (
-                    <p key={index}>{text}</p>
+                    <p key={index} className="text-justify">{text}</p>
                 ))}
             </div>
         ))}
@@ -58,6 +71,7 @@ export default function Scene() {
             style={{ bottom: '20px' }}
         >
             <div className="flex flex-col items-center">
+                <p className="mb-2">Scroll me</p>
                 <Image 
                     src="/icons/scroll_arrow.svg" 
                     alt="Scroll Arrow" 

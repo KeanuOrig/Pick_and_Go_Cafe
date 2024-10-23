@@ -1,0 +1,30 @@
+[
+    { 
+        "id": 1,
+        "angle": 90, 
+        "title": "Signature Coffees", 
+        "content": ["Indulge in our expertly crafted coffee selections.", "From rich espresso to velvety lattes, we have it all.", "Every cup is brewed with love and care!"], 
+        "position": { "left": "5%", "top": "10%" } 
+    },
+    { 
+        "id": 2,
+        "angle": 180, 
+        "title": "Refreshing Teas", 
+        "content": ["Try our assortment of fresh teas, brewed to perfection.", "From classic black tea to herbal infusions, enjoy a relaxing moment."], 
+        "position": { "right": "5%", "top": "10%" } 
+    },
+    { 
+        "id": 3,
+        "angle": 270, 
+        "title": "Specialty Drinks", 
+        "content": ["Quench your thirst with our handcrafted specialty drinks.", "Cold brew, iced teas, and more – perfect for any occasion!"], 
+        "position": { "left": "5%", "top": "60%" } 
+    },
+    { 
+        "id": 4,
+        "angle": 360, 
+        "title": "Pastries & Snacks", 
+        "content": ["Pair your drink with one of our freshly baked pastries."], 
+        "position": { "right": "5%", "top": "60%" } 
+    }
+]
