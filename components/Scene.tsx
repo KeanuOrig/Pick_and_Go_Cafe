@@ -2,7 +2,7 @@
 
 import { Canvas } from "@react-three/fiber"
 import { useProgress, Html, ScrollControls, OrbitControls } from "@react-three/drei"
-import { useState, Suspense } from "react"
+import { useState, Suspense, useEffect } from "react"
 import Model from './Model'
 import Image from 'next/image'
 import { useWindowSize } from "@/hooks/useWindowSize"
@@ -10,7 +10,11 @@ import { LandingData } from "@/interface"
 
 function Loader() {
   const { progress } = useProgress()
-  return <Html center>{progress.toFixed(1)}%</Html>
+  return (
+    <Html center>
+      <div className="text-white text-xl">{progress.toFixed(1)}%</div>
+    </Html>
+  );
 }
 
 export default function Scene() {
@@ -19,11 +23,13 @@ export default function Scene() {
     const [data, setData] = useState<LandingData[]>([]);
     const { isMobile } = useWindowSize();
 
-    fetch('/data/landing_scroll_data.json')
-        .then(response => response.json())
-        .then(data => setData(data))
-        .catch(error => console.error('Error fetching data:', error));
-
+    useEffect(() => {
+        fetch('/data/landing_scroll_data.json')
+            .then(response => response.json())
+            .then(data => setData(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+    
     return (
     <>
         <div  
