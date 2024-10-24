@@ -18,7 +18,6 @@ export default function Scene() {
     const [clickedAngle, setClickedAngle] = useState<number | null>(null)
     const [data, setData] = useState<LandingData[]>([]);
     const { isMobile } = useWindowSize();
-    
 
     fetch('/data/landing_scroll_data.json')
         .then(response => response.json())
@@ -27,6 +26,24 @@ export default function Scene() {
 
     return (
     <>
+        <div  
+            className={`absolute`} 
+            style={{
+                top: 0,
+                left: 0,
+                height: '10vw',
+                width: '10vw',
+            }}
+        >
+            <Image 
+                src="/images/logo_transparent_v2.png" 
+                alt="Scroll Arrow" 
+                width={400} 
+                height={400} 
+                priority
+        />
+        </div>
+
         <Canvas 
             gl={{ antialias: true }} 
             dpr={[1, 1.5]} 
@@ -39,7 +56,7 @@ export default function Scene() {
                 <ScrollControls damping={0.3} pages={4}>
                     <Model setClickedAngle={setClickedAngle} />
                 </ScrollControls>
-                { ! isMobile && <OrbitControls enableZoom={false} /> }
+                {! isMobile && <OrbitControls enableZoom={false} enablePan={false} />}
             </Suspense>
         </Canvas>
 
