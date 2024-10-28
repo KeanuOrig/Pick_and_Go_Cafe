@@ -5,7 +5,7 @@ import { useIndicator } from '../context/IndicatorContext';
 
 export default function Navigation() {
 
-  const { showIndicator, setShowIndicator } = useIndicator();
+  const { setShowIndicator } = useIndicator();
 
   const handleTapClick = () => {
     document.getElementById('landingScene')?.scrollIntoView({ behavior: 'smooth' });

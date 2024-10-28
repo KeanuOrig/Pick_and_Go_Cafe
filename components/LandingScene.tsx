@@ -1,7 +1,7 @@
 "use client"
 
 import { Canvas } from "@react-three/fiber"
-import { useProgress, Html, ScrollControls, OrbitControls } from "@react-three/drei"
+import { useProgress, Html, ScrollControls } from "@react-three/drei"
 import { useState, Suspense, useEffect } from "react"
 import CoffeeModel from './CoffeeModel'
 import OverlayContent from "./OverlayContent"
