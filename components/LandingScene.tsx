@@ -1,10 +1,9 @@
 "use client"
 
 import { Canvas } from "@react-three/fiber"
-import { useProgress, Html, ScrollControls, OrbitControls } from "@react-three/drei"
+import { useProgress, Html, ScrollControls } from "@react-three/drei"
 import { useState, Suspense, useEffect } from "react"
-import Model from './Model'
-import Logo from './Logo'
+import CoffeeModel from './CoffeeModel'
 import OverlayContent from "./OverlayContent"
 import IndicatorScroll from './IndicatorScroll'
 import { useWindowSize } from "@/hooks/useWindowSize"
@@ -23,7 +22,7 @@ function Loader() {
   );
 }
 
-export default function Scene() {
+export default function LandingScene() {
 
     const [clickedAngle, setClickedAngle] = useState<number | null>(null)
     const [data, setData] = useState<LandingData[]>([]);
@@ -35,10 +34,9 @@ export default function Scene() {
             .then(data => setData(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
-    
+
     return (
     <>
-        <Logo/>
         <Canvas 
             gl={{ antialias: true }} 
             dpr={[1, 1.5]} 
@@ -49,9 +47,9 @@ export default function Scene() {
             <directionalLight position={[-5, -5, -5]} intensity={3} />
             <Suspense fallback={<Loader />}>
                 <ScrollControls damping={0.3} pages={4}>
-                    <Model setClickedAngle={setClickedAngle} />
+                    <CoffeeModel setClickedAngle={setClickedAngle}/>
                 </ScrollControls>
-                {! isMobile && <OrbitControls enableZoom={false} enablePan={false} />}
+                {/* {! isMobile && <OrbitControls enableZoom={false} enablePan={false} />} */}
             </Suspense>
         </Canvas>
 
@@ -62,9 +60,7 @@ export default function Scene() {
             clickedAngle={clickedAngle} 
             isMobile={isMobile} 
         />
-
-        <IndicatorScroll clickedAngle={clickedAngle} />
-
+        <IndicatorScroll clickedAngle={clickedAngle}/>
     </>
     );
 }

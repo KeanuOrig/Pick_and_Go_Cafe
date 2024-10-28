@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./styles/globals.css";
+import { IndicatorProvider } from '../context/IndicatorContext';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,8 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* <Navbar /> */}
-        {children}
+        <IndicatorProvider >
+          {children}
+        </IndicatorProvider>
       </body>
     </html>
   );
