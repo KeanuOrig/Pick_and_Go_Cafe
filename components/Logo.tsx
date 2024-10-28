@@ -4,7 +4,7 @@ export default function Logo() {
 
     return (
         <div  
-        className={`absolute transform transition-transform duration-300 hover:scale-110`} 
+        className={`absolute animate-fadeinbounceleft transform transition-transform duration-300 hover:scale-110`} 
         style={{
             top: '1%',
             left: '0.5%',
