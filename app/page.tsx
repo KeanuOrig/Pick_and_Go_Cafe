@@ -7,7 +7,6 @@ const LandingScene = dynamic(() => import("../components/LandingScene"), { ssr: 
 
 export default function Home() {
   return (
-    <IndicatorProvider >
       <main className="h-screen bg-slate-600 overflow-hidden no-scrollbar">
         <Logo/>
         <Navigation/>
@@ -17,6 +16,5 @@ export default function Home() {
         <div id="detailScene" className="h-screen">
         </div>
       </main>
-    </IndicatorProvider>
   )
 }
