@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic"
 import Logo from '../components/Logo'
 import Navigation from '../components/Navigation'
-import { IndicatorProvider } from '../context/IndicatorContext';
 
 const LandingScene = dynamic(() => import("../components/LandingScene"), { ssr: false })
 
