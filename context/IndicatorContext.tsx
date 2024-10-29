@@ -3,17 +3,19 @@
 import React, { createContext, useContext, useState } from 'react';
 
 interface IndicatorContextType {
-    showIndicator: boolean;
-    setShowIndicator: React.Dispatch<React.SetStateAction<boolean>>;
+    showLandingIndicator: boolean;
+    setShowLandingIndicator: React.Dispatch<React.SetStateAction<boolean>>;
+    showDetailIndicator: boolean;
+    setShowDetailIndicator: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const IndicatorContext = createContext<IndicatorContextType | undefined>(undefined);
 
 export const IndicatorProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [showIndicator, setShowIndicator] = useState<boolean>(true);
-
+    const [showLandingIndicator, setShowLandingIndicator] = useState<boolean>(true);
+    const [showDetailIndicator, setShowDetailIndicator] = useState<boolean>(false);
     return (
-        <IndicatorContext.Provider value={{ showIndicator, setShowIndicator }}>
+        <IndicatorContext.Provider value={{ showLandingIndicator, setShowLandingIndicator, showDetailIndicator, setShowDetailIndicator }}>
             {children}
         </IndicatorContext.Provider>
     );
@@ -23,7 +25,7 @@ export const IndicatorProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 export const useIndicator = (): IndicatorContextType => {
     const context = useContext(IndicatorContext);
     if (!context) {
-        throw new Error("useIndicator must be used within an IndicatorProvider");
+        throw new Error("useLandingIndicator must be used within an IndicatorProvider");
     }
     return context;
 };

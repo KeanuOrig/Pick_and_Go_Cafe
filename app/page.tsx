@@ -3,6 +3,7 @@ import Logo from '../components/Logo'
 import Navigation from '../components/Navigation'
 
 const LandingScene = dynamic(() => import("../components/LandingScene"), { ssr: false })
+const DetailScene = dynamic(() => import("../components/DetailScene"), { ssr: false })
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
           <LandingScene />
         </div>
         <div id="detailScene" className="h-screen">
+          <DetailScene />
         </div>
       </main>
   )

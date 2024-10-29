@@ -5,7 +5,7 @@ import { useProgress, Html, ScrollControls } from "@react-three/drei"
 import { useState, Suspense, useEffect } from "react"
 import CoffeeModel from './CoffeeModel'
 import OverlayContent from "./OverlayContent"
-import IndicatorScroll from './IndicatorScroll'
+import LandingIndicator from './LandingIndicator'
 import { useWindowSize } from "@/hooks/useWindowSize"
 import { LandingData } from "@/interface"
 import styles from '../app/styles/Loader.module.css';
@@ -60,7 +60,7 @@ export default function LandingScene() {
             clickedAngle={clickedAngle} 
             isMobile={isMobile} 
         />
-        <IndicatorScroll clickedAngle={clickedAngle}/>
+        <LandingIndicator clickedAngle={clickedAngle}/>
     </>
     );
 }
