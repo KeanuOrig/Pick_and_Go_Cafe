@@ -2,8 +2,9 @@ import dynamic from "next/dynamic"
 import Logo from '../components/Logo'
 import Navigation from '../components/Navigation'
 
-const LandingScene = dynamic(() => import("../components/LandingScene"), { ssr: false })
-const DetailScene = dynamic(() => import("../components/DetailScene"), { ssr: false })
+const LandingScene = dynamic(() => import("../components/scenes/LandingScene"), { ssr: false })
+const DetailScene = dynamic(() => import("../components/scenes/DetailScene"), { ssr: false })
+const GlobeScene = dynamic(() => import("../components/scenes/GlobeScene"), { ssr: false })
 
 export default function Home() {
   return (
@@ -15,6 +16,9 @@ export default function Home() {
         </div>
         <div id="detailScene" className="h-screen">
           <DetailScene />
+        </div>
+        <div id="globeScene" className="h-screen">
+          <GlobeScene />
         </div>
       </main>
   )

@@ -22,24 +22,41 @@ export default function Navigation() {
     }
   };
 
-  const goToLanding = (scene : string) => {
+  const setIndicatorTimer = (duration: number | undefined) => {
+    const timer = setTimeout(() => {
+      setShowDetailIndicator(null);
+    }, duration);
+  
+    // Clean up the timer when the component unmounts or when the scene changes
+    return () => clearTimeout(timer);
+  };
+
+  const goToScene = (scene: string) => {
     
+    // let behavior: "auto" | "instant" | "smooth" = "smooth";
+    document.getElementById(scene)?.scrollIntoView({ behavior: "smooth" });
+
     switch (scene) {
       case 'landingScene':
         setShowLandingIndicator(true);
-        setShowDetailIndicator(false);
+        setShowDetailIndicator(null);
         break;
+
       case 'detailScene':
-        setShowDetailIndicator(true);
+        setShowDetailIndicator('detail');
         setShowLandingIndicator(false);
-        break;
+        return setIndicatorTimer(4000);
+
+      case 'globeScene':
+        setShowDetailIndicator('globe');
+        setShowLandingIndicator(false);
+        return setIndicatorTimer(4000);
+
       default:
         setShowLandingIndicator(false);
-        setShowDetailIndicator(false);
+        setShowDetailIndicator(null);
         break;
     }
-        
-    document.getElementById(scene)?.scrollIntoView({ behavior: 'smooth' });
   }
   
   return (
@@ -61,18 +78,18 @@ export default function Navigation() {
       onClick={handleTapClick}
     >
         <ul className="text-sm text-white" aria-labelledby="doubleDropdownButton">
-          <li className="py-1 hover:animate-growonce">
-            <Navitem src="/icons/globe.svg"/>
+          <li onClick={() => {goToScene('landingScene')}} className="py-1 hover:animate-growonce">
+            <Navitem src="/icons/refresh.svg"/>
           </li>
-          <li onClick={() => {goToLanding('detailScene')}} className="py-1 hover:animate-growonce">
+          <li onClick={() => {goToScene('detailScene')}} className="py-1 hover:animate-growonce">
             <Navitem src="/icons/list.svg"/>
           </li>
-          <li onClick={() => {goToLanding('landingScene')}} className="py-1 hover:animate-growonce">
-            <Navitem src="/icons/refresh.svg"/>
+          <li onClick={() => {goToScene('globeScene')}} className="py-1 hover:animate-growonce">
+            <Navitem src="/icons/globe.svg"/>
           </li>
         </ul>
       </div>
-)}
+    )}
     </>
   );
 }

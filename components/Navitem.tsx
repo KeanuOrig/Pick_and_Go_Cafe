@@ -12,6 +12,7 @@ export default function Navitem({ src }: ModelProps) {
         alt="Nav Item" 
         width={30} 
         height={30} 
+        unoptimized={src === "/icons/coffee-pot.gif"}
       />
     );
 

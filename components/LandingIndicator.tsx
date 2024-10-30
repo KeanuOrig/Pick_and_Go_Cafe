@@ -17,7 +17,7 @@ export default function LandingIndicator({ clickedAngle }: ModelProps) {
     const handleTapClick = () => {
         document.getElementById('detailScene')?.scrollIntoView({ behavior: 'smooth' });
         setShowLandingIndicator(false);
-        setShowDetailIndicator(true);
+        setShowDetailIndicator('detail');
     };
     
     return (
@@ -58,7 +58,7 @@ export default function LandingIndicator({ clickedAngle }: ModelProps) {
                     </div>
                 </div>
             )}
-            {showDetailIndicator &&(
+            {showDetailIndicator === 'detail' &&(
                 <div 
                     className={`z-10 text-overlay absolute left-1/2 transform -translate-x-1/2 text-white bg-black bg-opacity-70 p-5 rounded-lg transition-opacity duration-500`} 
                     style={{ bottom: '20px' }}
@@ -68,6 +68,26 @@ export default function LandingIndicator({ clickedAngle }: ModelProps) {
                             <p className="mb-2">Swipe me</p>
                             <Image 
                                 src="/icons/arrow-right.svg" 
+                                alt="Scroll Arrow" 
+                                className="z-101 scroll-arrow animate-wiggle mt-2 mx-auto" 
+                                width={40} 
+                                height={40} 
+                                priority
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
+            {showDetailIndicator === 'globe' &&(
+                <div 
+                    className={`z-10 text-overlay absolute left-1/2 transform -translate-x-1/2 text-white bg-black bg-opacity-70 p-5 rounded-lg transition-opacity duration-500`} 
+                    style={{ bottom: '20px' }}
+                >
+                    <div className="flex flex-col items-center">
+                        <div>
+                            <p className="mb-2">Rotate me</p>
+                            <Image 
+                                src="/icons/rotate.svg" 
                                 alt="Scroll Arrow" 
                                 className="z-101 scroll-arrow animate-wiggle mt-2 mx-auto" 
                                 width={40} 
