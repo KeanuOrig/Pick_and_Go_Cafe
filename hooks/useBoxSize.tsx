@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useBoxSize = (divisor: number = 300) => {
+const useBoxSize = (divisor: number = 200) => {
     const [boxSize, setBoxSize] = useState(3.50);
 
     const updateBoxSize = () => {
