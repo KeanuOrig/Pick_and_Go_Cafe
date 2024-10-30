@@ -18,6 +18,11 @@ export default function LandingIndicator({ clickedAngle }: ModelProps) {
         document.getElementById('detailScene')?.scrollIntoView({ behavior: 'smooth' });
         setShowLandingIndicator(false);
         setShowDetailIndicator('detail');
+        const timer = setTimeout(() => {
+            setShowDetailIndicator(null);
+          }, 4000);
+        
+          return () => clearTimeout(timer);
     };
     
     return (

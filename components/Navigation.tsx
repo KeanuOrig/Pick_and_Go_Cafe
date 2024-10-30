@@ -27,7 +27,6 @@ export default function Navigation() {
       setShowDetailIndicator(null);
     }, duration);
   
-    // Clean up the timer when the component unmounts or when the scene changes
     return () => clearTimeout(timer);
   };
 
