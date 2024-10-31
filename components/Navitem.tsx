@@ -9,6 +9,7 @@ export default function Navitem({ src }: ModelProps) {
         <Image 
         src={src} 
         className="mx-auto"
+        style={{ contentVisibility: 'auto' }}
         alt="Nav Item" 
         width={30} 
         height={30} 

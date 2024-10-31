@@ -15,7 +15,7 @@ export default function GlobeScene() {
             gl={{ antialias: true }} 
             dpr={[1, 1.5]} 
             camera={{ position: [0, 0, -5] }} 
-            className="relative h-svh"
+            className="animate-wiggleonce relative h-svh"
         >
             <SpotLightAnimate />
             <ambientLight intensity={0.5} />

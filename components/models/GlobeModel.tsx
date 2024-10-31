@@ -3,9 +3,14 @@ import { useWindowSize } from "@/hooks/useWindowSize";
 import { Html } from "@react-three/drei";
 import { PHILIPPINES_COORDINATES } from "@/constants/coordinates";
 import { Euler, Quaternion, TextureLoader, Vector3 } from "three";
+import { useState } from "react";
+import Link from 'next/link';
+import Button from "../Button";
 
 export default function GlobeModel() {
-
+  
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const { isMobile } = useWindowSize();
 
   const earthTexture = useLoader(TextureLoader, "/three/earth_texture.jpg");
@@ -20,6 +25,18 @@ export default function GlobeModel() {
   );
 
   const boholRotation = computeRotation(boholCoordinates);
+
+  const handleIconClick = () => {
+    if (isModalOpen) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setIsAnimating(false);
+      }, 300);
+    } else {
+      setIsModalOpen(true);
+    }
+  };
 
   return (
     <mesh>                   
@@ -37,15 +54,57 @@ export default function GlobeModel() {
       </mesh>
 
 
-      <Html position={boholCoordinates}>
+      {/* <Html position={boholCoordinates}>
         <div style={{ color: 'black', fontSize: '1rem' }}>☕️</div>
-      </Html>
+      </Html> */}
 
+      <Html 
+        position={boholCoordinates} 
+      >
+        <div
+          className="text-black text-lg cursor-pointer"
+          onClick={handleIconClick}
+        >
+          ☕️
+        </div>
+        
+        {/* Modal rendering */}
+        {isModalOpen && (
+          <div className={`fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50 ${!isAnimating ? 'animate-fadeinexpand' : 'animate-fadeoutcollapse'}`}>
+            <div className="bg-white bg-opacity-70 p-5 rounded shadow-lg relative relative">
+              <span
+                className="absolute top-2 right-5 cursor-pointer text-lg"
+                onClick={handleIconClick}
+                role="button"
+                aria-label="Close modal"
+              >
+                ✖️
+              </span>
+              <span
+                className="absolute top-2 left-5 cursor-pointer text-lg font-bold"
+              >
+                Pick & Go Cafe
+              </span>
+              {/* Google Map */}
+              <iframe
+                className="rounded-lg shadow-lg mt-6"
+                src="https://www.google.com/maps/embed/v1/place?q=Bohol,+Philippines&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+                allowFullScreen
+                loading="lazy"
+              ></iframe>
+
+              <Link href="/comingsoon" className="flex justify-center items-center mt-4">
+                <Button message="Explore Our Shop"/>
+              </Link>
+            </div>
+          </div>
+        )}
+      </Html>
     </mesh>
   );
 }
 
-function convertLatLngToXYZ(lat: number, lng: number, radius: number): [number, number, number] {
+const convertLatLngToXYZ = (lat: number, lng: number, radius: number): [number, number, number] => {
   const phi = (90 - lat) * (Math.PI / 180);
   const theta = (lng + 180) * (Math.PI / 180);
 
@@ -57,7 +116,7 @@ function convertLatLngToXYZ(lat: number, lng: number, radius: number): [number, 
 }
 
 // Compute rotation to keep the flag aligned outward from the globe center
-function computeRotation([x, y, z]: [number, number, number]) {
+const computeRotation = ([x, y, z]: [number, number, number]) => {
   const direction = new Vector3(x, y, z).normalize(); // Normalized direction from the center
   const quaternion = new Quaternion();
   quaternion.setFromUnitVectors(new Vector3(0, 1, 0), direction); // Align upward vector with direction
