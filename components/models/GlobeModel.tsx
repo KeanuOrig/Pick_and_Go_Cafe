@@ -93,7 +93,7 @@ export default function GlobeModel() {
                 loading="lazy"
               ></iframe>
 
-              <Link href="/comingsoon" className="flex justify-center items-center mt-4">
+              <Link href="/coming-soon" className="flex justify-center items-center mt-4">
                 <Button message="Explore Our Shop"/>
               </Link>
             </div>
