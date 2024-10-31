@@ -7,21 +7,25 @@ import { Suspense, useRef } from "react";
 import Loader from "../Loader";
 import * as THREE from "three";
 import { PHILIPPINE_SPOTLIGHT } from "@/constants/coordinates";
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 export default function GlobeScene() {
-    
+
+    const { isMobile } = useWindowSize();
+    const sphereScale = isMobile ? 1.5 : 2.2;
+
     return (
         <Canvas 
             gl={{ antialias: true }} 
             dpr={[1, 1.5]} 
             camera={{ position: [0, 0, -5] }} 
-            className="animate-wiggleonce relative h-svh"
+            className={`${!isMobile && 'animate-wiggleonce'} relative h-svh`}
         >
             <SpotLightAnimate />
             <ambientLight intensity={0.5} />
             <pointLight position={[-6.8, 2.5, -10]} decay={0} intensity={5} />
             <Suspense fallback={<Loader />}>
-                <GlobeModel />
+                <GlobeModel sphereScale={sphereScale}/>
             </Suspense>
             <OrbitControls 
                 enableZoom={true} 
