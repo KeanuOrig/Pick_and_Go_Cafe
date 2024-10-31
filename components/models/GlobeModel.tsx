@@ -1,5 +1,4 @@
 import { useLoader } from "@react-three/fiber";
-import { useWindowSize } from "@/hooks/useWindowSize";
 import { Html } from "@react-three/drei";
 import { PHILIPPINES_COORDINATES } from "@/constants/coordinates";
 import { Euler, Quaternion, TextureLoader, Vector3 } from "three";
@@ -7,21 +6,22 @@ import { useState } from "react";
 import Link from 'next/link';
 import Button from "../Button";
 
-export default function GlobeModel() {
+interface ModelProps {
+  sphereScale: number;
+}
+
+export default function GlobeModel({ sphereScale }: ModelProps) {
   
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-  const { isMobile } = useWindowSize();
 
   const earthTexture = useLoader(TextureLoader, "/three/earth_texture.jpg");
   const redFiberTexture = useLoader(TextureLoader, "/three/red_fiber_texture.jpg");
 
-  const size = isMobile ? 1.5 : 2.2;
-
   const boholCoordinates = convertLatLngToXYZ(
     PHILIPPINES_COORDINATES.bohol.latitude, 
     PHILIPPINES_COORDINATES.bohol.longitude, 
-    size
+    sphereScale
   );
 
   const boholRotation = computeRotation(boholCoordinates);
@@ -40,7 +40,7 @@ export default function GlobeModel() {
 
   return (
     <mesh>                   
-      <sphereGeometry args={[size, 32, 32]} />
+      <sphereGeometry args={[sphereScale, 32, 32]} />
       <meshStandardMaterial /* wireframe={true}  */map={earthTexture} />
 
       {/* Axis,Gridm Wirefram Helpers for better 3D placement */}
