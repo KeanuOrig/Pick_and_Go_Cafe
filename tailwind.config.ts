@@ -15,7 +15,9 @@ const config: Config = {
       animation: {
         grow: 'grow 1.0s ease-in-out infinite',
         growonce: 'grow-once 0.6s ease-in-out forwards',
+        shake: 'shake 0.6s ease-in-out 0.25s 1',
         wiggle: 'wiggle 1s ease-in-out infinite',
+        wiggleonce: 'wiggle-once ease-in-out 30s infinite',
         fadeinbounceleft: 'fade-in-bounce-left 1s ease-in-out 0.25s 1',
         fadeinbounceup: 'fade-in-bounce-up 0.5s ease forwards',
         fadeoutbouncedown: 'fade-out-bounce-down 0.5s ease forwards',
@@ -33,12 +35,24 @@ const config: Config = {
           '0%': { transform: 'scale(1)' },
           '100%': { transform: 'scale(1.4)' },
         },
+        "shake": {
+          "0%, 100%": { transform: "translateX(0)" }, 
+          "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-10px)" },
+          "20%, 40%, 60%, 80%": { transform: "translateX(10px)" }
+        },
         "wiggle": {
           '0%': { transform: 'rotate(0deg)' },
           '25%': { transform: 'rotate(-6deg)' },
           '50%': { transform: 'rotate(6deg)' },
           '75%': { transform: 'rotate(-6deg)' },
           '100%': { transform: 'rotate(0deg)' },
+        },
+        "wiggle-once": {
+          '0%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(-1deg)' },
+          '50%': { transform: 'rotate(1deg)' },
+          '75%': { transform: 'rotate(-1deg)' },
+          '100%': { transform: 'rotate(1deg)' },
         },
         "fade-in-bounce-left": {
           "0%": {
