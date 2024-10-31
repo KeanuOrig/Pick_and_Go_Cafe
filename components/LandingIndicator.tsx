@@ -34,7 +34,7 @@ export default function LandingIndicator({ clickedAngle }: ModelProps) {
                 >
                     <div className="flex flex-col items-center">
                         {clickedAngle === 0 && (
-                            <div>
+                            <div style={{ contentVisibility: 'auto' }}>
                                 <p className="mb-2">Scroll me</p>
                                 <Image 
                                     src="/icons/scroll_arrow.svg" 
@@ -49,7 +49,7 @@ export default function LandingIndicator({ clickedAngle }: ModelProps) {
                         {clickedAngle === 1 && (
                             <div onClick={handleTapClick}>
                                 <p className="mb-2 cursor-pointer">Tap me</p>
-                                <div className="text-center cursor-pointer">
+                                <div className="text-center cursor-pointer" style={{ contentVisibility: 'auto' }}>
                                     <Image 
                                         src="/icons/tap_arrow.svg" 
                                         alt="Tap Arrow" 
@@ -69,7 +69,7 @@ export default function LandingIndicator({ clickedAngle }: ModelProps) {
                     style={{ bottom: '20px' }}
                 >
                     <div className="flex flex-col items-center">
-                        <div>
+                        <div style={{ contentVisibility: 'auto' }}>
                             <p className="mb-2">Swipe me</p>
                             <Image 
                                 src="/icons/arrow-right.svg" 
@@ -89,7 +89,7 @@ export default function LandingIndicator({ clickedAngle }: ModelProps) {
                     style={{ bottom: '20px' }}
                 >
                     <div className="flex flex-col items-center">
-                        <div>
+                        <div style={{ contentVisibility: 'auto' }}>
                             <p className="mb-2">Rotate me</p>
                             <Image 
                                 src="/icons/rotate.svg" 
