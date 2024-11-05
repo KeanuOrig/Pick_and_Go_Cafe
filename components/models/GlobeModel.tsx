@@ -1,8 +1,9 @@
 import { useLoader } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { PHILIPPINES_COORDINATES } from "@/constants/coordinates";
-import { Euler, Quaternion, TextureLoader, Vector3 } from "three";
+import { TextureLoader } from "three";
 import { useState } from "react";
+import { computeRotation, convertLatLngToXYZ } from "@/utils/utils";
 import Link from 'next/link';
 import Button from "../Button";
 
@@ -12,7 +13,7 @@ interface ModelProps {
 
 export default function GlobeModel({ sphereScale }: ModelProps) {
   
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   const earthTexture = useLoader(TextureLoader, "/three/earth_texture.jpg");
@@ -102,25 +103,4 @@ export default function GlobeModel({ sphereScale }: ModelProps) {
       </Html>
     </mesh>
   );
-}
-
-const convertLatLngToXYZ = (lat: number, lng: number, radius: number): [number, number, number] => {
-  const phi = (90 - lat) * (Math.PI / 180);
-  const theta = (lng + 180) * (Math.PI / 180);
-
-  const x = -radius * Math.sin(phi) * Math.cos(theta);
-  const y = radius * Math.cos(phi);
-  const z = radius * Math.sin(phi) * Math.sin(theta);
-
-  return [ x, y, z ];
-}
-
-// Compute rotation to keep the flag aligned outward from the globe center
-const computeRotation = ([x, y, z]: [number, number, number]) => {
-  const direction = new Vector3(x, y, z).normalize(); // Normalized direction from the center
-  const quaternion = new Quaternion();
-  quaternion.setFromUnitVectors(new Vector3(0, 1, 0), direction); // Align upward vector with direction
-
-  const euler = new Euler().setFromQuaternion(quaternion);
-  return [euler.x, euler.y, euler.z];
 }

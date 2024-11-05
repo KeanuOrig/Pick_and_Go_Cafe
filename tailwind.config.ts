@@ -33,7 +33,7 @@ const config: Config = {
         },
         "grow-once": {
           '0%': { transform: 'scale(1)' },
-          '100%': { transform: 'scale(1.4)' },
+          '100%': { transform: 'scale(1.1)' },
         },
         "shake": {
           "0%, 100%": { transform: "translateX(0)" }, 
